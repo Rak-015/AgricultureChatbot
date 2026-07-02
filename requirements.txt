@@ -5,3 +5,4 @@ tensorflow==2.10.1
 numpy==1.26.4
 Pillow==10.4.0
 Werkzeug==3.0.3
+gunicorn
