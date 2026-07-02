@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AGRI-BOT | AI-Powered Smart Agriculture Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="topbar">
+        <a class="brand" href="#home"><span>AGRI</span>-BOT</a>
+        <div class="navlinks">
+            <a href="#dashboard">Dashboard</a><a href="#disease">Disease</a><a href="#advisor">Advisor</a><a href="#chatbot">Chatbot</a>
+        </div>
+    </nav>
+    <main id="home">
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">AI-Powered Smart Agriculture Assistant</p>
+                <h1>AGRI-BOT</h1>
+                <p class="tagline">Disease detection, crop guidance, soil fertility prediction, and farming support from one localhost dashboard.</p>
+                <div class="hero-actions"><a href="#disease" class="btn primary">Scan leaf</a><a href="#chatbot" class="btn secondary">Ask chatbot</a></div>
+            </div>
+        </section>
+        <section id="dashboard" class="section dashboard-section">
+            <div class="section-head"><div><p class="eyebrow dark">Farm intelligence</p><h2>Dashboard</h2></div><button id="initDbBtn" class="icon-btn" title="Create MySQL tables">Initialize DB</button></div>
+            <div class="stats-grid">
+                <article class="stat-card"><span>Total Predictions</span><strong>{{ stats.predictions }}</strong><small>Leaf disease scans</small></article>
+                <article class="stat-card"><span>Total Chats</span><strong>{{ stats.chats }}</strong><small>Advisor conversations</small></article>
+                <article class="stat-card"><span>Crop Recommendations</span><strong>{{ stats.crops }}</strong><small>Best crop outputs</small></article>
+                <article class="stat-card"><span>Soil Predictions</span><strong>{{ stats.soil }}</strong><small>Fertility checks</small></article>
+            </div>
+        </section>
+        <section id="disease" class="section split-section">
+            <div class="panel upload-panel"><p class="eyebrow dark">Plant disease detection</p><h2>Upload leaf image</h2><form id="diseaseForm" enctype="multipart/form-data"><label class="drop-zone" for="leafImage"><input id="leafImage" name="leaf_image" type="file" accept="image/*" required><span id="fileName">Choose corn, potato, or tomato leaf image</span></label><button class="btn primary full" type="submit">Predict disease</button></form></div>
+            <div class="panel result-panel" id="diseaseResult"><p class="muted">Prediction result will appear here with confidence, treatment, and prevention tips.</p></div>
+        </section>
+        <section id="advisor" class="section tool-grid">
+            <div class="panel"><p class="eyebrow dark">Soil fertility</p><h2>Soil prediction</h2><form id="soilForm" class="compact-grid">{% for field in ['ph','ec','oc','om','n','p','k','zn','fe','cu','mn','sand','silt','clay','caco3','cec'] %}<label>{{ field|upper }}<input type="number" step="0.01" name="{{ field }}" required></label>{% endfor %}<button class="btn primary full grid-span" type="submit">Check fertility</button></form><div class="mini-result" id="soilResult"></div></div>
+            <div class="panel"><p class="eyebrow dark">Crop recommendation</p><h2>Recommend crop</h2><form id="cropForm" class="compact-grid crop-grid">{% for field in ['n','p','k','temperature','humidity','ph','rainfall'] %}<label>{{ field|capitalize }}<input type="number" step="0.01" name="{{ field }}" required></label>{% endfor %}<button class="btn primary full grid-span" type="submit">Find crop</button></form><div class="mini-result" id="cropResult"></div></div>
+        </section>
+        <section id="chatbot" class="section chat-section"><div class="section-head"><div><p class="eyebrow dark">Agriculture chatbot</p><h2>Ask AGRI-BOT</h2></div></div><div class="chat-shell"><div class="chat-history" id="chatHistory"><div class="bot bubble">Namaste! Ask me about crops, soil, fertilizer, irrigation, pest control, disease management, or seasonal farming.</div></div><form id="chatForm" class="chat-input"><input id="chatMessage" type="text" placeholder="Type your farming question..." autocomplete="off" required><button class="btn primary" type="submit">Send</button></form></div></section>
+    </main>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
