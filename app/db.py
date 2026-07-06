@@ -19,8 +19,8 @@ def init_database():
     try:
         conn = get_connection(database=False)
         cursor = conn.cursor()
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
-        cursor.execute(f"USE {db_name}")
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{db_name}`")
+        cursor.execute(f"USE `{db_name}`")
         for statement in statements:
             upper = statement.upper()
             if upper.startswith("CREATE DATABASE") or upper.startswith("USE "):
@@ -48,7 +48,8 @@ def execute(query, params=None, fetchone=False, fetchall=False):
         cursor.close()
         conn.close()
         return result
-    except Error:
+    except Error as e:
+        print("MYSQL Error:", e)
         return None
 
 
