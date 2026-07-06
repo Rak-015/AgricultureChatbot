@@ -1,0 +1,6 @@
+venv/
+venv-disease/
+.git/
+__pycache__/
+*.pyc
+.env
